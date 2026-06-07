@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Tambah Laporan</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+<body class="bg-slate-100">
+
+<div class="max-w-3xl mx-auto mt-10 bg-white p-8 rounded-xl shadow">
+
+<h1 class="text-3xl font-bold mb-8">
+
+Tambah Laporan
+
+</h1>
+
+<form id="reportForm" class="space-y-5">
+
+<input
+id="nama_barang"
+type="text"
+placeholder="Nama Barang"
+required
+class="w-full border p-3 rounded">
+
+<textarea
+id="deskripsi"
+placeholder="Deskripsi"
+class="w-full border p-3 rounded">
+</textarea>
+
+<input
+id="lokasi"
+type="text"
+placeholder="Lokasi"
+required
+class="w-full border p-3 rounded">
+
+<input
+id="tanggal"
+type="date"
+required
+class="w-full border p-3 rounded">
+
+<select
+id="tipe"
+required
+class="w-full border p-3 rounded">
+
+<option value="">
+Pilih Jenis Laporan
+</option>
+
+<option value="hilang">
+Barang Hilang
+</option>
+
+<option value="ditemukan">
+Barang Ditemukan
+</option>
+
+</select>
+
+<select
+    id="kategori"
+    required
+    class="w-full border p-3 rounded-lg">
+
+        <option value="">
+            Memuat kategori...
+        </option>
+
+    </select>
+
+<button
+type="submit"
+class="bg-blue-800 text-white px-6 py-3 rounded">
+
+Simpan Laporan
+
+</button>
+
+</form>
+
+</div>
+
+<script type="module"
+src="js/add-report.js"></script>
+
+</body>
+</html>

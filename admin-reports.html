@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Semua Laporan</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+font-family:'Inter',sans-serif;
+}
+
+</style>
+
+</head>
+
+<body class="bg-slate-100">
+
+<div class="flex">
+
+    <!-- SIDEBAR -->
+
+    <aside class="w-64 h-screen fixed bg-blue-900 text-white flex flex-col">
+
+        <div class="p-6 border-b border-blue-800">
+
+            <h1 class="text-4xl font-bold">
+                Admin Panel
+            </h1>
+
+            <p class="text-blue-200 mt-1">
+                Pelaporan Barang
+            </p>
+
+        </div>
+
+        <nav class="mt-6 flex-1">
+
+            <a
+            href="admin-dashboard.html"
+            class="flex items-center px-6 py-4 hover:bg-blue-800 transition">
+
+                <span class="text-xl">📊</span>
+
+                <span class="ml-3">
+                    Dashboard
+                </span>
+
+            </a>
+
+            <a
+            href="admin-reports.html"
+            class="flex items-center px-6 py-4 bg-blue-800">
+
+                <span class="text-xl">📄</span>
+
+                <span class="ml-3">
+                    Semua Laporan
+                </span>
+
+            </a>
+
+            <a
+            href="admin-claims.html"
+            class="flex items-center px-6 py-4 hover:bg-blue-800 transition">
+
+                <span class="text-xl">✔️</span>
+
+                <span class="ml-3">
+                    Verifikasi
+                </span>
+
+            </a>
+
+            <a
+            href="admin-users.html"
+            class="flex items-center px-6 py-4 hover:bg-blue-800 transition">
+
+                <span class="text-xl">👥</span>
+
+                <span class="ml-3">
+                    Manajemen User
+                </span>
+
+            </a>
+
+        </nav>
+
+        <div class="p-6">
+
+            <button
+            id="logoutBtn"
+            class="w-full bg-red-600 hover:bg-red-700 py-3 rounded-lg font-semibold">
+
+                Logout
+
+            </button>
+
+        </div>
+
+    </aside>
+
+    <!-- CONTENT -->
+
+    <main class="ml-64 flex-1 p-10">
+
+        <div class="mb-8">
+
+            <h2 class="text-4xl font-bold mb-2">
+
+                Semua Laporan
+
+            </h2>
+
+            <p class="text-gray-500">
+
+                Kelola seluruh laporan yang masuk ke sistem
+
+            </p>
+
+        </div>
+
+        <!-- SEARCH -->
+
+        <div class="bg-white rounded-xl shadow p-5 mb-8">
+
+            <div class="flex gap-4">
+
+                <input
+                id="searchInput"
+                type="text"
+                placeholder="Cari nama barang..."
+                class="flex-1 border rounded-lg px-4 py-3">
+
+                <select
+                id="statusFilter"
+                class="border rounded-lg px-4 py-3">
+
+                    <option value="all">
+                        Semua Status
+                    </option>
+
+                    <option value="aktif">
+                        Aktif
+                    </option>
+
+                    <option value="diproses">
+                        Diproses
+                    </option>
+
+                    <option value="selesai">
+                        Selesai
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+        <!-- TABLE -->
+
+        <div class="bg-white rounded-xl shadow overflow-hidden">
+
+            <div class="p-6 border-b">
+
+                <h3 class="text-2xl font-bold">
+
+                    Data Laporan
+
+                </h3>
+
+            </div>
+
+            <table class="w-full">
+
+                <thead class="bg-slate-100">
+
+                    <tr>
+
+                        <th class="p-4 text-left">
+                            Barang
+                        </th>
+
+                        <th class="p-4 text-left">
+                            Lokasi
+                        </th>
+
+                        <th class="p-4 text-left">
+                            Tanggal
+                        </th>
+
+                        <th class="p-4 text-left">
+                            Status
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="reportTable">
+
+                    <!-- Data dari admin-reports.js -->
+
+                </tbody>
+
+            </table>
+
+            <div class="flex justify-between items-center p-6 bg-slate-50">
+
+                <p class="text-gray-500">
+
+                    Menampilkan semua laporan
+
+                </p>
+
+                <div>
+                    <span id="reportCount" class="text-gray-500"></span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+<script type="module" src="js/admin-reports.js"></script>
+
+</body>
+</html>

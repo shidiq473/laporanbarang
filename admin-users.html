@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Manajemen User</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+<body class="bg-slate-100">
+
+<div class="flex">
+
+    <!-- SIDEBAR -->
+
+    <aside class="w-64 h-screen bg-blue-900 text-white fixed">
+
+        <div class="p-6 border-b border-blue-700">
+
+            <h1 class="text-3xl font-bold">
+                Admin Panel
+            </h1>
+
+            <p class="text-blue-200">
+                Pelaporan Barang
+            </p>
+
+        </div>
+
+        <nav class="mt-6">
+
+            <a href="admin-dashboard.html"
+            class="flex items-center px-6 py-4 hover:bg-blue-800">
+
+                Dashboard
+
+            </a>
+
+            <a href="admin-reports.html"
+            class="flex items-center px-6 py-4 hover:bg-blue-800">
+
+                Semua Laporan
+
+            </a>
+
+            <a href="admin-claims.html"
+            class="flex items-center px-6 py-4 hover:bg-blue-800">
+
+                Verifikasi
+
+            </a>
+
+            <a href="admin-users.html"
+            class="flex items-center px-6 py-4 bg-blue-800">
+
+                Manajemen User
+
+            </a>
+
+        </nav>
+
+        <button
+        id="logoutBtn"
+        class="absolute bottom-6 left-6 right-6 bg-red-600 py-3 rounded">
+
+            Logout
+
+        </button>
+
+    </aside>
+
+    <!-- CONTENT -->
+
+    <main class="ml-64 flex-1 p-8">
+
+        <h2 class="text-5xl font-bold mb-2">
+
+            Manajemen User
+
+        </h2>
+
+        <p class="text-gray-500 mb-8">
+
+            Kelola akun pengguna sistem
+
+        </p>
+
+        <div class="bg-white rounded-xl shadow">
+
+            <table class="w-full">
+
+                <thead class="bg-slate-100">
+
+                    <tr>
+
+                        <th class="p-4 text-left">
+                            Nama
+                        </th>
+
+                        <th class="p-4 text-left">
+                            Email
+                        </th>
+
+                        <th class="p-4 text-left">
+                            Role
+                        </th>
+
+                        <th class="p-4 text-left">
+                            tanggal daftar
+                        </th>
+
+                        <th class="p-4 text-left">
+                            aktivitas
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="userTable">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </main>
+
+</div>
+
+<script type="module" src="js/admin-users.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Profil Saya</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+rel="stylesheet">
+
+</head>
+
+<body class="bg-slate-100">
+
+<div class="flex">
+
+    <!-- SIDEBAR -->
+
+    <aside class="w-64 h-screen bg-blue-900 text-white fixed">
+
+        <div class="p-6 border-b border-blue-700">
+
+            <h1 class="text-2xl font-bold">
+                Lost & Found
+            </h1>
+
+        </div>
+
+        <nav class="mt-6">
+
+            <a href="dashboard.html"
+               class="flex items-center px-6 py-4 hover:bg-blue-800">
+
+                <span class="material-icons mr-3">
+                    dashboard
+                </span>
+
+                Dashboard
+
+            </a>
+
+            <a href="add-report.html"
+               class="flex items-center px-6 py-4 hover:bg-blue-800">
+
+                <span class="material-icons mr-3">
+                    add_circle
+                </span>
+
+                Buat Laporan
+
+            </a>
+
+            <a href="profile.html"
+               class="flex items-center px-6 py-4 bg-blue-800">
+
+                <span class="material-icons mr-3">
+                    person
+                </span>
+
+                Profil
+
+            </a>
+
+        </nav>
+
+    </aside>
+
+    <!-- CONTENT -->
+
+    <main class="ml-64 p-8 w-full">
+
+        <div class="max-w-4xl mx-auto">
+
+            <div class="bg-white rounded-xl shadow p-8">
+
+                <div class="flex items-center gap-6 mb-8">
+
+                    <div
+                    class="w-24 h-24 rounded-full bg-blue-800 text-white flex items-center justify-center text-4xl font-bold"
+                    id="avatar">
+
+                    </div>
+
+                    <div>
+
+                        <h1
+                        id="nama"
+                        class="text-3xl font-bold">
+
+                        Loading...
+
+                        </h1>
+
+                        <p
+                        id="email"
+                        class="text-gray-500">
+
+                        Loading...
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="grid grid-cols-2 gap-6">
+
+                    <div>
+
+                        <label class="font-semibold text-gray-500">
+                            Username
+                        </label>
+
+                        <p
+                        id="username"
+                        class="text-lg mt-1">
+
+                        -
+
+                        </p>
+
+                    </div>
+
+                    <div>
+
+                        <label class="font-semibold text-gray-500">
+                            Role
+                        </label>
+
+                        <p
+                        id="role"
+                        class="text-lg mt-1">
+
+                        -
+
+                        </p>
+
+                    </div>
+
+                    <div>
+
+                        <label class="font-semibold text-gray-500">
+                            Bergabung Sejak
+                        </label>
+
+                        <p
+                        id="createdAt"
+                        class="text-lg mt-1">
+
+                        -
+
+                        </p>
+
+                    </div>
+
+                    <div>
+
+                        <label class="font-semibold text-gray-500">
+                            Total Laporan
+                        </label>
+
+                        <p
+                        id="totalReports"
+                        class="text-lg mt-1">
+
+                        0
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="mt-10 flex gap-4">
+
+                    <button
+                    id="passwordBtn"
+                    class="bg-green-600 text-white px-6 py-3 rounded-lg">
+
+                        Ganti Password
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+<script type="module" src="js/profil.js"></script>
+
+</body>
+</html>
