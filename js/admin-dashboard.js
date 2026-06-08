@@ -74,77 +74,46 @@ function renderTable(reports) {
 
     const table = document.getElementById('reportCards');
 
-    container.innerHTML = '';
+    table.innerHTML = '';
 
     reports.forEach(report => {
 
-        container.innerHTML += `
-        <div class="bg-white border rounded-x1 p-5 shadow hover:shadow-lg transition">
-         <div class ="flex justify-between items-start mb-4">
- <div>
-
-            <h4 class="font-fontbold text-ig">
-                ${report.nama_barang}
-            </h4>
-
-            <p class="text-sm  text-gray-500">
-                ${report.lokasi}
-            </p>
-</div>
-<span class="
-px-3 py-1 rounded full text-sm
-${statuscolor(report.status)}
-                </span>
-
+        table.innerHTML += `
+        <div class="bg-white border rounded-xl p-5 shadow hover:shadow-lg transition">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <h4 class="font-bold text-lg">
+                        ${report.nama_barang}
+                    </h4>
+                    <p class="text-sm text-gray-500">
+                        ${report.lokasi}
+                    </p>
                 </div>
-
-                <div class="space-y-2 text-sm">
-                </p>
-<p>
-<span class="font-semibold">
-user:
-</span>
-${report.user_id}
-</p>
-</div>
-<div class-"flex gap-2 mt-5">
- <b   
-</td>
-
-            <td class="p-4">
-                ${report.lokasi}
-            </td>
-
-            <td class="p-4">
-                <span class="
-                    px-3 py-1 rounded-full text-sm
-                    ${statusColor(report.status)}
-                ">
+                <span class="px-3 py-1 rounded-full text-sm ${statusColor(report.status)}">
                     ${report.status}
                 </span>
-                </div>
-                <div class="space-y-2 text-sm">
+            </div>
+
+            <div class="space-y-2 text-sm">
                 <p>
-                <span class="font-semibold">
-                tipe:
-                </span>
-                ${report.tipe_laporan}
+                    <span class="font-semibold">Tipe:</span>
+                    ${report.tipe_laporan}
                 </p>
                 <p>
-                <span class="font-semibold">
-                user:
-                </span>
-                ${report.user_id}
+                    <span class="font-semibold">User:</span>
+                    ${report.user_id}
                 </p>
-                </div>
-                <div class="flex gap-2 mt-5">
-                <button
-                oneclick="processReport('$(report.id}')"
-                class="flex=1 bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-green-600">
-                selesai
+            </div>
+
+            <div class="flex gap-2 mt-5">
+                <button onclick="processReport('${report.id}', '${report.status}')" class="flex-1 bg-blue-500 text-white px-3 py-2 rounded hover:bg-blue-600">
+                    Proses
                 </button>
-                </div>
-                </div>
+                <button onclick="finishReport('${report.id}')" class="flex-1 bg-green-500 text-white px-3 py-2 rounded hover:bg-green-600">
+                    Selesai
+                </button>
+            </div>
+        </div>
         `;
     });
 }
@@ -208,4 +177,4 @@ window.finishReport = async function (id) {
 // ==========================
 // INIT
 // ==========================
-loadReports();
+loadReports(); 
