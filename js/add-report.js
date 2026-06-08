@@ -1,107 +1,259 @@
 import { supabase } from './supabase.js';
 
-// Ambil user login
+// ==========================
+// CEK LOGIN
+// ==========================
+
 const {
     data: { user }
-}
-=
-await supabase.auth.getUser();
+} = await supabase.auth.getUser();
 
-if(!user){
-
-    window.location.href =
-    'login.html';
-
+if (!user) {
+    window.location.href = 'login.html';
 }
 
-// Load kategori dari database
+// ==========================
+// LOGOUT
+// ==========================
 
-const {
-    data: categories,
-    error: categoryError
-}
-=
-await supabase
-.from('categories')
-.select('*')
-.order('nama_kategori');
+document
+.getElementById('logoutBtn')
+?.addEventListener('click', async () => {
 
-const kategoriSelect =
-document.getElementById('kategori');
+    await supabase.auth.signOut();
 
-kategoriSelect.innerHTML =
-'<option value="">Pilih Kategori Barang</option>';
+    window.location.href = 'login.html';
 
-if(categoryError){
+});
 
-    console.log(categoryError);
+// ==========================
+// LOAD KATEGORI
+// ==========================
 
-}else{
+async function loadCategories() {
 
-    categories.forEach(category => {
+    const {
+        data,
+        error
+    } = await supabase
+        .from('categories')
+        .select('*')
+        .order('nama_kategori');
 
-        kategoriSelect.innerHTML += `
-        <option value="${category.id}">
-            ${category.nama_kategori}
-        </option>
+    if (error) {
+
+        console.log(error);
+
+        return;
+    }
+
+    const select =
+    document.getElementById('category');
+
+    select.innerHTML =
+    '<option value="">Pilih Kategori</option>';
+
+    data.forEach(item => {
+
+        select.innerHTML += `
+            <option value="${item.id}">
+                ${item.nama_kategori}
+            </option>
         `;
 
     });
 
 }
 
-// Simpan laporan
-document
-.getElementById('reportForm')
-.addEventListener('submit',
-async(e)=>{
+// ==========================
+// CEK MODE EDIT
+// ==========================
 
-e.preventDefault();
-
-const report = {
-
-    user_id: user.id,
-
-    category_id:
-    document.getElementById('kategori').value,
-
-    nama_barang:
-    document.getElementById('nama_barang').value,
-
-    deskripsi:
-    document.getElementById('deskripsi').value,
-
-    lokasi:
-    document.getElementById('lokasi').value,
-
-    tanggal_kejadian:
-    document.getElementById('tanggal').value,
-
-    tipe_laporan:
-    document.getElementById('tipe').value
-
-};
-
-const {
-    error
-}
-=
-await supabase
-.from('reports')
-.insert([report]);
-
-if(error){
-
-    alert(error.message);
-
-    return;
-}
-
-alert(
-'Laporan berhasil dibuat'
+const params =
+new URLSearchParams(
+    window.location.search
 );
 
-window.location.href =
-'dashboard.html';
+const reportId =
+params.get('id');
+
+if (reportId) {
+
+    document.getElementById('pageTitle').textContent =
+    'Edit Laporan';
+
+    document.getElementById('submitBtn').textContent =
+    'Update Laporan';
+
+}
+
+// ==========================
+// LOAD DATA LAPORAN
+// ==========================
+
+async function loadReportData() {
+
+    if (!reportId) return;
+
+    const {
+        data,
+        error
+    } = await supabase
+        .from('reports')
+        .select('*')
+        .eq('id', reportId)
+        .single();
+
+    if (error) {
+
+        console.log(error);
+
+        alert('Gagal mengambil data laporan');
+
+        return;
+
+    }
+
+    document.getElementById('namaBarang').value =
+    data.nama_barang || '';
+
+    document.getElementById('deskripsi').value =
+    data.deskripsi || '';
+
+    document.getElementById('lokasi').value =
+    data.lokasi || '';
+
+    document.getElementById('tipeLaporan').value =
+    data.tipe_laporan || '';
+
+    document.getElementById('category').value =
+    data.category_id || '';
+
+}
+
+// ==========================
+// SUBMIT FORM
+// ==========================
+
+document
+.getElementById('reportForm')
+.addEventListener(
+'submit',
+async(e)=>{
+
+    e.preventDefault();
+
+    const nama_barang =
+    document.getElementById('namaBarang').value;
+
+    const deskripsi =
+    document.getElementById('deskripsi').value;
+
+    const lokasi =
+    document.getElementById('lokasi').value;
+
+    const tipe_laporan =
+    document.getElementById('tipeLaporan').value;
+
+    const category_id =
+    document.getElementById('category').value;
+
+    // ======================
+    // MODE EDIT
+    // ======================
+
+    if(reportId){
+
+        const {
+            error
+        }
+        =
+        await supabase
+        .from('reports')
+        .update({
+
+            nama_barang,
+            deskripsi,
+            lokasi,
+            tipe_laporan,
+            category_id
+
+        })
+        .eq('id', reportId);
+
+        if(error){
+
+            console.log(error);
+
+            alert(
+                'Gagal mengupdate laporan'
+            );
+
+            return;
+        }
+
+        alert(
+            'Laporan berhasil diperbarui'
+        );
+
+        window.location.href =
+        'dashboard.html';
+
+        return;
+
+    }
+
+    // ======================
+    // MODE TAMBAH
+    // ======================
+
+    const {
+        error
+    }
+    =
+    await supabase
+    .from('reports')
+    .insert([{
+
+        nama_barang,
+        deskripsi,
+        lokasi,
+        tipe_laporan,
+        category_id,
+
+        user_id:
+        user.id,
+
+        status:
+        'aktif'
+
+    }]);
+
+    if(error){
+
+        console.log(error);
+
+        alert(
+            'Gagal menambahkan laporan'
+        );
+
+        return;
+
+    }
+
+    alert(
+        'Laporan berhasil ditambahkan'
+    );
+
+    window.location.href =
+    'dashboard.html';
 
 });
+
+// ==========================
+// INIT
+// ==========================
+
+await loadCategories();
+
+await loadReportData();

@@ -12,87 +12,193 @@ content="width=device-width, initial-scale=1.0">
 
 </head>
 
-<body class="bg-slate-100">
+<body class="bg-slate-100 min-h-screen">
 
-<div class="max-w-3xl mx-auto mt-10 bg-white p-8 rounded-xl shadow">
+<div class="max-w-3xl mx-auto py-10 px-4">
 
-<h1 class="text-3xl font-bold mb-8">
+    <div class="bg-white p-8 rounded-xl shadow">
 
-Tambah Laporan
+        <!-- JUDUL -->
 
-</h1>
+        <h1
+        id="pageTitle"
+        class="text-3xl font-bold mb-8">
 
-<form id="reportForm" class="space-y-5">
+            Tambah Laporan
 
-<input
-id="nama_barang"
-type="text"
-placeholder="Nama Barang"
-required
-class="w-full border p-3 rounded">
+        </h1>
 
-<textarea
-id="deskripsi"
-placeholder="Deskripsi"
-class="w-full border p-3 rounded">
-</textarea>
+        <!-- FORM -->
 
-<input
-id="lokasi"
-type="text"
-placeholder="Lokasi"
-required
-class="w-full border p-3 rounded">
+        <form
+        id="reportForm"
+        class="space-y-5">
 
-<input
-id="tanggal"
-type="date"
-required
-class="w-full border p-3 rounded">
+            <!-- NAMA BARANG -->
 
-<select
-id="tipe"
-required
-class="w-full border p-3 rounded">
+            <div>
 
-<option value="">
-Pilih Jenis Laporan
-</option>
+                <label
+                class="block mb-2 font-medium">
 
-<option value="hilang">
-Barang Hilang
-</option>
+                    Nama Barang
 
-<option value="ditemukan">
-Barang Ditemukan
-</option>
+                </label>
 
-</select>
+                <input
+                id="nama_barang"
+                type="text"
+                placeholder="Masukkan nama barang"
+                required
+                class="w-full border p-3 rounded-lg">
 
-<select
-    id="kategori"
-    required
-    class="w-full border p-3 rounded-lg">
+            </div>
 
-        <option value="">
-            Memuat kategori...
-        </option>
+            <!-- DESKRIPSI -->
 
-    </select>
+            <div>
 
-<button
-type="submit"
-class="bg-blue-800 text-white px-6 py-3 rounded">
+                <label
+                class="block mb-2 font-medium">
 
-Simpan Laporan
+                    Deskripsi
 
-</button>
+                </label>
 
-</form>
+                <textarea
+                id="deskripsi"
+                rows="4"
+                placeholder="Deskripsi barang"
+                class="w-full border p-3 rounded-lg"></textarea>
+
+            </div>
+
+            <!-- LOKASI -->
+
+            <div>
+
+                <label
+                class="block mb-2 font-medium">
+
+                    Lokasi
+
+                </label>
+
+                <input
+                id="lokasi"
+                type="text"
+                placeholder="Lokasi kehilangan / ditemukan"
+                required
+                class="w-full border p-3 rounded-lg">
+
+            </div>
+
+            <!-- TANGGAL -->
+
+            <div>
+
+                <label
+                class="block mb-2 font-medium">
+
+                    Tanggal
+
+                </label>
+
+                <input
+                id="tanggal"
+                type="date"
+                required
+                class="w-full border p-3 rounded-lg">
+
+            </div>
+
+            <!-- JENIS LAPORAN -->
+
+            <div>
+
+                <label
+                class="block mb-2 font-medium">
+
+                    Jenis Laporan
+
+                </label>
+
+                <select
+                id="tipe"
+                required
+                class="w-full border p-3 rounded-lg">
+
+                    <option value="">
+                        Pilih Jenis Laporan
+                    </option>
+
+                    <option value="hilang">
+                        Barang Hilang
+                    </option>
+
+                    <option value="ditemukan">
+                        Barang Ditemukan
+                    </option>
+
+                </select>
+
+            </div>
+
+            <!-- KATEGORI -->
+
+            <div>
+
+                <label
+                class="block mb-2 font-medium">
+
+                    Kategori
+
+                </label>
+
+                <select
+                id="kategori"
+                required
+                class="w-full border p-3 rounded-lg">
+
+                    <option value="">
+                        Memuat kategori...
+                    </option>
+
+                </select>
+
+            </div>
+
+            <!-- BUTTON -->
+
+            <div class="flex gap-3 pt-4">
+
+                <button
+                id="submitBtn"
+                type="submit"
+                class="bg-blue-800 hover:bg-blue-900 text-white px-6 py-3 rounded-lg">
+
+                    Simpan Laporan
+
+                </button>
+
+                <a
+                href="dashboard.html"
+                class="bg-gray-300 hover:bg-gray-400 px-6 py-3 rounded-lg">
+
+                    Batal
+
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
 
 </div>
 
-<script type="module"
+<script
+type="module"
 src="js/add-report.js"></script>
 
 </body>

@@ -9,7 +9,9 @@ const {
 } = await supabase.auth.getUser();
 
 if (!user) {
+
     window.location.href = 'login.html';
+
 }
 
 // =========================
@@ -18,7 +20,7 @@ if (!user) {
 
 document
 .getElementById('logoutBtn')
-.addEventListener('click', async () => {
+?.addEventListener('click', async () => {
 
     await supabase.auth.signOut();
 
@@ -43,9 +45,14 @@ await supabase
         nama_kategori
     )
 `)
-.order('created_at', { ascending: false });
+.order(
+    'created_at',
+    {
+        ascending: false
+    }
+);
 
-if(error){
+if (error) {
 
     console.log(error);
 
@@ -64,23 +71,40 @@ reports?.length || 0;
 
 const lost =
 reports?.filter(
-r => r.tipe_laporan === 'hilang'
+    r => r.tipe_laporan === 'hilang'
 ).length || 0;
 
 const found =
 reports?.filter(
-r => r.tipe_laporan === 'ditemukan'
+    r => r.tipe_laporan === 'ditemukan'
 ).length || 0;
 
 const completed =
 reports?.filter(
-r => r.status === 'selesai'
+    r => r.status === 'selesai'
 ).length || 0;
 
-document.getElementById('totalReports').textContent = total;
-document.getElementById('lostReports').textContent = lost;
-document.getElementById('foundReports').textContent = found;
-document.getElementById('completedReports').textContent = completed;
+// isi statistik jika elemennya ada
+
+document.getElementById('totalReports')
+&& (
+    document.getElementById('totalReports').textContent = total
+);
+
+document.getElementById('lostReports')
+&& (
+    document.getElementById('lostReports').textContent = lost
+);
+
+document.getElementById('foundReports')
+&& (
+    document.getElementById('foundReports').textContent = found
+);
+
+document.getElementById('completedReports')
+&& (
+    document.getElementById('completedReports').textContent = completed
+);
 
 // =========================
 // TABEL LAPORAN
@@ -89,103 +113,145 @@ document.getElementById('completedReports').textContent = completed;
 const table =
 document.getElementById('reportTable');
 
-table.innerHTML = '';
+if (table) {
 
-reports.forEach(report => {
+    table.innerHTML = '';
 
-    let aksiButton = '';
+    if (!reports || reports.length === 0) {
 
-    // Laporan milik sendiri
-    if(report.user_id === user.id){
+        table.innerHTML = `
 
-        aksiButton = `
+        <tr>
 
-            <button
-                onclick="editReport(${report.id})"
-                class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded">
+            <td
+            colspan="6"
+            class="text-center p-8 text-gray-500">
 
-                Edit
+                Belum ada laporan
 
-            </button>
+            </td>
 
-            <button
-                onclick="deleteReport(${report.id})"
-                class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded ml-2">
-
-                Hapus
-
-            </button>
+        </tr>
 
         `;
 
-    }else{
+    } else {
 
-        // Laporan orang lain
-        aksiButton = `
+        reports.forEach(report => {
 
-            <button
-                onclick="claimItem(${report.id})"
-                class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded">
+            let aksiButton = '';
 
-                Klaim Barang
+            // =========================
+            // MILIK SENDIRI
+            // =========================
 
-            </button>
+            if (report.user_id === user.id) {
 
-        `;
+                aksiButton = `
+
+                    <button
+                        onclick="editReport('${report.id}')"
+                        class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded">
+
+                        Edit
+
+                    </button>
+
+                    <button
+                        onclick="deleteReport('${report.id}')"
+                        class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded ml-2">
+
+                        Hapus
+
+                    </button>
+
+                `;
+
+            }
+
+            // =========================
+            // MILIK ORANG LAIN
+            // =========================
+
+            else {
+
+                aksiButton = `
+
+                    <button
+                        onclick="claimItem('${report.id}')"
+                        class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded">
+
+                        Klaim Barang
+
+                    </button>
+
+                `;
+
+            }
+
+            table.innerHTML += `
+
+            <tr class="border-b hover:bg-gray-50">
+
+                <td class="p-4">
+
+                    ${report.nama_barang}
+
+                </td>
+
+                <td class="p-4">
+
+                    ${report.categories?.nama_kategori ?? '-'}
+
+                </td>
+
+                <td class="p-4 capitalize">
+
+                    ${report.tipe_laporan}
+
+                </td>
+
+                <td class="p-4">
+
+                    ${report.lokasi}
+
+                </td>
+
+                <td class="p-4">
+
+                    <span class="
+                        px-3 py-1 rounded-full text-sm
+
+                        ${
+                            report.status === 'aktif'
+                            ? 'bg-yellow-100 text-yellow-700'
+                            : report.status === 'diproses'
+                            ? 'bg-blue-100 text-blue-700'
+                            : 'bg-green-100 text-green-700'
+                        }
+                    ">
+
+                        ${report.status}
+
+                    </span>
+
+                </td>
+
+                <td class="p-4">
+
+                    ${aksiButton}
+
+                </td>
+
+            </tr>
+
+            `;
+
+        });
 
     }
 
-    table.innerHTML += `
-
-    <tr class="border-b hover:bg-gray-50">
-
-        <td class="p-4">
-            ${report.nama_barang}
-        </td>
-
-        <td class="p-4">
-            ${report.categories?.nama_kategori ?? '-'}
-        </td>
-
-        <td class="p-4 capitalize">
-            ${report.tipe_laporan}
-        </td>
-
-        <td class="p-4">
-            ${report.lokasi}
-        </td>
-
-        <td class="p-4">
-
-            <span class="
-                px-3 py-1 rounded-full text-sm
-
-                ${
-                    report.status === 'aktif'
-                    ? 'bg-yellow-100 text-yellow-700'
-                    : report.status === 'diproses'
-                    ? 'bg-blue-100 text-blue-700'
-                    : 'bg-green-100 text-green-700'
-                }
-            ">
-
-                ${report.status}
-
-            </span>
-
-        </td>
-
-        <td class="p-4">
-
-            ${aksiButton}
-
-        </td>
-
-    </tr>
-
-    `;
-
-});
+}
 
 // =========================
 // EDIT LAPORAN
@@ -194,9 +260,9 @@ reports.forEach(report => {
 window.editReport = function(id){
 
     window.location.href =
-    `edit-report.html?id=${id}`;
+    `create-report.html?id=${id}`;
 
-}
+};
 
 // =========================
 // HAPUS LAPORAN
@@ -211,7 +277,10 @@ window.deleteReport = async function(id){
 
     if(!konfirmasi) return;
 
-    const { error } =
+    const {
+        error
+    }
+    =
     await supabase
     .from('reports')
     .delete()
@@ -222,6 +291,7 @@ window.deleteReport = async function(id){
         alert(error.message);
 
         return;
+
     }
 
     alert(
@@ -230,7 +300,7 @@ window.deleteReport = async function(id){
 
     location.reload();
 
-}
+};
 
 // =========================
 // KLAIM BARANG
@@ -241,4 +311,4 @@ window.claimItem = function(id){
     window.location.href =
     `claim.html?id=${id}`;
 
-}
+};
