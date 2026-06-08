@@ -79,72 +79,66 @@ function renderTable(reports) {
     reports.forEach(report => {
 
         table.innerHTML += `
-        <tr class="border-b hover:bg-slate-50">
+        <div class="bg-white border rounded-xl p-5 shadow hover:shadow-lg transition">
 
-            <td class="p-4 font-semibold">
+            <h3 class="text-lg font-bold mb-3">
                 ${report.nama_barang}
-            </td>
+            </h3>
 
-            <td class="p-4 capitalize">
-                ${report.tipe_laporan}
-            </td>
+            <div class="space-y-2 text-sm">
 
-            <td class="p-4">
-                ${report.user_id}
-            </td>
+                <p>
+                    <strong>Tipe:</strong>
+                    ${report.tipe_laporan}
+                </p>
 
-            <td class="p-4">
-                ${report.lokasi}
-            </td>
+                <p>
+                    <strong>User:</strong>
+                    ${report.user_id}
+                </p>
 
-            <td class="p-4">
-                <span class="
-                    px-3 py-1 rounded-full text-sm
-                    ${statusColor(report.status)}
-                ">
-                    ${report.status}
-                </span>
-            </td>
+                <p>
+                    <strong>Lokasi:</strong>
+                    ${report.lokasi}
+                </p>
 
-            <td class="p-4 flex gap-2">
+                <p>
+                    <strong>Status:</strong>
 
-                <!-- KLAIM / PROSES -->
-                <button onclick="processReport('${report.id}', '${report.status}')"
-                    class="bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600">
+                    <span class="
+                        px-3 py-1 rounded-full text-sm
+                        ${statusColor(report.status)}
+                    ">
+                        ${report.status}
+                    </span>
+                </p>
+
+            </div>
+
+            <div class="flex gap-2 mt-4">
+
+                <button
+                    onclick="processReport('${report.id}','${report.status}')"
+                    class="bg-blue-500 text-white px-3 py-2 rounded hover:bg-blue-600">
 
                     Proses
 
                 </button>
 
-                <!-- SELESAI -->
-                <button onclick="finishReport('${report.id}')"
-                    class="bg-green-500 text-white px-3 py-1 rounded text-sm hover:bg-green-600">
+                <button
+                    onclick="finishReport('${report.id}')"
+                    class="bg-green-500 text-white px-3 py-2 rounded hover:bg-green-600">
 
                     Selesai
 
                 </button>
 
-            </td>
+            </div>
 
-        </tr>
+        </div>
         `;
     });
 }
-
-// ==========================
-// STATUS COLOR
-// ==========================
-function statusColor(status) {
-
-    if (status === 'aktif') return 'bg-yellow-100 text-yellow-700';
-
-    if (status === 'diproses') return 'bg-blue-100 text-blue-700';
-
-    if (status === 'selesai') return 'bg-green-100 text-green-700';
-
-    return 'bg-gray-100 text-gray-600';
-}
-
 // ==========================
 // PROSES REPORT (CLAIM ADMIN)
 // ==========================
@@ -190,4 +184,4 @@ window.finishReport = async function (id) {
 // ==========================
 // INIT
 // ==========================
-loadReports();
+loadReports(); 
