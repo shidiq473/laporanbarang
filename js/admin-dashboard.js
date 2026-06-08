@@ -72,7 +72,7 @@ function renderStats(reports) {
 // ==========================
 function renderTable(reports) {
 
-    const table = document.getElementById('reportCards');
+    const table = document.getElementById('reportTable');
 
     table.innerHTML = '';
 
@@ -80,58 +80,65 @@ function renderTable(reports) {
 
         table.innerHTML += `
         <div class="bg-white border rounded-xl p-5 shadow hover:shadow-lg transition">
-            <div class="flex justify-between items-start mb-4">
-                <div>
-                    <h4 class="font-bold text-lg">
-                        ${report.nama_barang}
-                    </h4>
-                    <p class="text-sm text-gray-500">
-                        ${report.lokasi}
-                    </p>
-                </div>
-                <span class="px-3 py-1 rounded-full text-sm ${statusColor(report.status)}">
-                    ${report.status}
-                </span>
-            </div>
+
+            <h3 class="text-lg font-bold mb-3">
+                ${report.nama_barang}
+            </h3>
 
             <div class="space-y-2 text-sm">
+
                 <p>
-                    <span class="font-semibold">Tipe:</span>
+                    <strong>Tipe:</strong>
                     ${report.tipe_laporan}
                 </p>
+
                 <p>
-                    <span class="font-semibold">User:</span>
+                    <strong>User:</strong>
                     ${report.user_id}
                 </p>
+
+                <p>
+                    <strong>Lokasi:</strong>
+                    ${report.lokasi}
+                </p>
+
+                <p>
+                    <strong>Status:</strong>
+
+                    <span class="
+                        px-3 py-1 rounded-full text-sm
+                        ${statusColor(report.status)}
+                    ">
+                        ${report.status}
+                    </span>
+                </p>
+
             </div>
 
-            <div class="flex gap-2 mt-5">
-                <button onclick="processReport('${report.id}', '${report.status}')" class="flex-1 bg-blue-500 text-white px-3 py-2 rounded hover:bg-blue-600">
+            <div class="flex gap-2 mt-4">
+
+                <button
+                    onclick="processReport('${report.id}','${report.status}')"
+                    class="bg-blue-500 text-white px-3 py-2 rounded hover:bg-blue-600">
+
                     Proses
+
                 </button>
-                <button onclick="finishReport('${report.id}')" class="flex-1 bg-green-500 text-white px-3 py-2 rounded hover:bg-green-600">
+
+                <button
+                    onclick="finishReport('${report.id}')"
+                    class="bg-green-500 text-white px-3 py-2 rounded hover:bg-green-600">
+
                     Selesai
+
                 </button>
+
             </div>
+
         </div>
         `;
     });
 }
-
-// ==========================
-// STATUS COLOR
-// ==========================
-function statusColor(status) {
-
-    if (status === 'aktif') return 'bg-yellow-100 text-yellow-700';
-
-    if (status === 'diproses') return 'bg-blue-100 text-blue-700';
-
-    if (status === 'selesai') return 'bg-green-100 text-green-700';
-
-    return 'bg-gray-100 text-gray-600';
-}
-
 // ==========================
 // PROSES REPORT (CLAIM ADMIN)
 // ==========================
