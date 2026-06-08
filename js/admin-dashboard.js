@@ -72,13 +72,13 @@ function renderStats(reports) {
 // ==========================
 function renderTable(reports) {
 
-    const table = document.getElementById('reportTable');
+    const container = document.getElementById('reportContainer');
 
-    table.innerHTML = '';
+    container.innerHTML = '';
 
     reports.forEach(report => {
 
-        table.innerHTML += `
+        container.innerHTML += `
         <tr class="border-b hover:bg-slate-50">
 
             <td class="p-4 font-semibold">
