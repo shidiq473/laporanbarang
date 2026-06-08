@@ -150,14 +150,6 @@ if (table) {
                 aksiButton = `
 
                     <button
-                        onclick="editReport('${report.id}')"
-                        class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded">
-
-                        Edit
-
-                    </button>
-
-                    <button
                         onclick="deleteReport('${report.id}')"
                         class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded ml-2">
 
@@ -252,17 +244,6 @@ if (table) {
     }
 
 }
-
-// =========================
-// EDIT LAPORAN
-// =========================
-
-window.editReport = function(id){
-
-    window.location.href =
-    `create-report.html?id=${id}`;
-
-};
 
 // =========================
 // HAPUS LAPORAN
