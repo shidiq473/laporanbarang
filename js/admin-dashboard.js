@@ -72,26 +72,44 @@ function renderStats(reports) {
 // ==========================
 function renderTable(reports) {
 
-    const table = document.getElementById('reportTable');
+    const table = document.getElementById('reportCards');
 
-    table.innerHTML = '';
+    container.innerHTML = '';
 
     reports.forEach(report => {
 
-        table.innerHTML += `
-        <tr class="border-b hover:bg-slate-50">
+        container.innerHTML += `
+        <div class="bg-white border rounded-x1 p-5 shadow hover:shadow-lg transition">
+         <div class ="flex justify-between items-start mb-4">
+ <div>
 
-            <td class="p-4 font-semibold">
+            <h4 class="font-fontbold text-ig">
                 ${report.nama_barang}
-            </td>
+            </h4>
 
-            <td class="p-4 capitalize">
-                ${report.tipe_laporan}
-            </td>
+            <p class="text-sm  text-gray-500">
+                ${report.lokasi}
+            </p>
+</div>
+<span class="
+px-3 py-1 rounded full text-sm
+${statuscolor(report.status)}
+                </span>
 
-            <td class="p-4">
-                ${report.user_id}
-            </td>
+                </div>
+
+                <div class="space-y-2 text-sm">
+                </p>
+<p>
+<span class="font-semibold">
+user:
+</span>
+${report.user_id}
+</p>
+</div>
+<div class-"flex gap-2 mt-5">
+ <b   
+</td>
 
             <td class="p-4">
                 ${report.lokasi}
@@ -104,29 +122,29 @@ function renderTable(reports) {
                 ">
                     ${report.status}
                 </span>
-            </td>
-
-            <td class="p-4 flex gap-2">
-
-                <!-- KLAIM / PROSES -->
-                <button onclick="processReport('${report.id}', '${report.status}')"
-                    class="bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600">
-
-                    Proses
-
+                </div>
+                <div class="space-y-2 text-sm">
+                <p>
+                <span class="font-semibold">
+                tipe:
+                </span>
+                ${report.tipe_laporan}
+                </p>
+                <p>
+                <span class="font-semibold">
+                user:
+                </span>
+                ${report.user_id}
+                </p>
+                </div>
+                <div class="flex gap-2 mt-5">
+                <button
+                oneclick="processReport('$(report.id}')"
+                class="flex=1 bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-green-600">
+                selesai
                 </button>
-
-                <!-- SELESAI -->
-                <button onclick="finishReport('${report.id}')"
-                    class="bg-green-500 text-white px-3 py-1 rounded text-sm hover:bg-green-600">
-
-                    Selesai
-
-                </button>
-
-            </td>
-
-        </tr>
+                </div>
+                </div>
         `;
     });
 }
